@@ -1,5 +1,9 @@
-import MarketingHomePage from "../1/2/app/(marketing)/page";
+import HeroScreen from './components/HeroScreen';
 
-export default function Home() {
-  return <MarketingHomePage />;
+export default function HomePage() {
+  return (
+    <main>
+      <HeroScreen />
+    </main>
+  );
 } 

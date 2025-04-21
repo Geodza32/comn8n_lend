@@ -206,6 +206,15 @@ export default function HeroScreen() {
               </li>
             </ul>
           </div>
+          
+          <div className="flex flex-wrap gap-4 justify-center mt-8">
+            <button className="gradient-button px-6 py-3 text-lg font-medium">
+              Присоединиться к сообществу
+            </button>
+            <button className="gradient-button px-6 py-3 text-lg font-medium">
+              Узнать больше
+            </button>
+          </div>
         </div>
         
         {/* Дополнительный текст */}
@@ -218,16 +227,6 @@ export default function HeroScreen() {
           <p className="text-xl bg-gradient-to-r from-amber-300 to-red-400 text-transparent bg-clip-text font-bold">
             Стоимость участия — 5000 ₽ в месяц
           </p>
-        </div>
-        
-        {/* Кнопки */}
-        <div className="flex flex-col sm:flex-row justify-center gap-4">
-          <button className="gradient-button glow">
-            Присоединиться к сообществу
-          </button>
-          <button className="px-6 py-3 rounded-md bg-black/30 text-white hover:bg-black/40 transition border border-amber-500/30 backdrop-blur-sm hover:shadow-lg hover:scale-105">
-            Узнать больше
-          </button>
         </div>
       </div>
     </section>

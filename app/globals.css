@@ -2,6 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 0, 0, 0;
+  --background-end-rgb: 0, 0, 0;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -85,16 +101,10 @@
 
 @layer components {
   .hero-gradient {
-    background: radial-gradient(
-      ellipse at bottom,
-      rgba(29, 29, 50, 1) 0%,
-      rgba(11, 11, 30, 1) 60%,
-      rgba(5, 5, 20, 1) 100%
-    );
+    background: radial-gradient(circle at center, rgba(45, 55, 72, 0.5) 0%, rgba(17, 24, 39, 0.8) 100%);
+    box-shadow: 0 0 40px rgba(66, 153, 225, 0.1);
     position: relative;
     overflow: hidden;
-    box-shadow: 0 0 100px rgba(0, 0, 0, 0.5) inset, 0 5px 25px rgba(0, 0, 0, 0.5);
-    border: 1px solid rgba(255, 255, 255, 0.1);
   }
   
   .hero-gradient::before {
@@ -183,44 +193,50 @@
   }
 
   .gradient-button {
-    background: linear-gradient(90deg, #ff7b00, #ffb347, #ff7b00);
-    background-size: 200% auto;
-    color: white;
-    border: none;
-    padding: 0.75rem 1.5rem;
-    border-radius: 0.375rem;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    position: relative;
-    box-shadow: 0 0 15px rgba(255, 123, 0, 0.4);
-    animation: gradientMove 3s ease infinite;
-  }
-  
-  .gradient-button::after {
-    content: "";
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
-    transform: rotate(30deg);
-    animation: shineEffect 6s infinite;
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-
-  .gradient-button:hover::after {
-    opacity: 1;
+    @apply px-6 py-3 rounded-md text-white transition-all duration-300;
+    background: linear-gradient(135deg, rgba(255, 165, 0, 0.2) 0%, rgba(255, 69, 0, 0.2) 100%);
+    border: 1px solid rgba(255, 165, 0, 0.3);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   }
   
   .gradient-button:hover {
+    background: linear-gradient(135deg, rgba(255, 165, 0, 0.3) 0%, rgba(255, 69, 0, 0.3) 100%);
     transform: translateY(-2px);
-    box-shadow: 0 0 20px rgba(255, 123, 0, 0.6);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   }
 
-  .gradient-button:active {
-    transform: translateY(1px);
+  .gradient-button.glow::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #f59e0b, #ef4444);
+    z-index: -1;
+    filter: blur(15px);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .gradient-button.glow:hover::before {
+    opacity: 0.7;
+  }
+
+  .animate-bounce-slow {
+    animation: bounce 3s infinite;
+  }
+
+  @keyframes bounce {
+    0%, 100% {
+      transform: translateY(-5%);
+      animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+    }
+    50% {
+      transform: translateY(0);
+      animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    }
   }
 
   .glow {
@@ -229,22 +245,24 @@
 
   .styled-border {
     position: relative;
-    border-radius: 0.75rem;
-    overflow: hidden;
+    border: 1px solid transparent;
+    background: linear-gradient(45deg, #2563eb, #7c3aed);
+    background-clip: padding-box;
+    animation: borderGlow 4s ease-in-out infinite;
   }
   
   .styled-border::before {
     content: '';
     position: absolute;
-    inset: 0;
-    border-radius: 0.75rem;
-    padding: 1px;
-    background: linear-gradient(45deg, rgba(255, 179, 71, 0.5), rgba(255, 123, 0, 0.2), rgba(255, 179, 71, 0.2), rgba(255, 123, 0, 0.5));
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    opacity: 0.7;
-    animation: borderRotate 8s linear infinite;
+    top: -2px;
+    right: -2px;
+    bottom: -2px;
+    left: -2px;
+    z-index: -1;
+    border-radius: inherit;
+    background: linear-gradient(45deg, #2563eb, #7c3aed);
+    opacity: 0.5;
+    filter: blur(8px);
   }
 
   .animated-badge {
@@ -254,10 +272,8 @@
     font-size: 0.875rem;
     border-radius: 9999px;
     position: relative;
-    background: rgba(0, 0, 0, 0.4);
-    border: 1px solid rgba(255, 179, 71, 0.5);
-    box-shadow: 0 0 15px rgba(255, 179, 71, 0.3);
-    backdrop-filter: blur(5px);
+    background: linear-gradient(45deg, #2563eb, #7c3aed);
+    animation: pulse 2s infinite;
   }
   
   .animated-badge::before {
@@ -344,8 +360,12 @@
 }
 
 @keyframes twinkle {
-  0%, 100% { opacity: 0.2; transform: scale(0.8); }
-  50% { opacity: 1; transform: scale(1); }
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
 }
 
 @keyframes shineEffect {
@@ -383,13 +403,35 @@
   background: hsl(var(--primary) / 0.8);
 }
 
-@keyframes borderRotate {
-  from { background-position: 0% 0%; }
-  to { background-position: 200% 0%; }
+@keyframes borderGlow {
+  0% {
+    filter: drop-shadow(0 0 5px rgba(37, 99, 235, 0.5));
+  }
+  50% {
+    filter: drop-shadow(0 0 15px rgba(124, 58, 237, 0.5));
+  }
+  100% {
+    filter: drop-shadow(0 0 5px rgba(37, 99, 235, 0.5));
+  }
 }
 
 @keyframes gradientMove {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 } 

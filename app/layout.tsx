@@ -1,21 +1,20 @@
-import React from "react";
-import type { ReactNode } from "react";
-import { Header } from "../1/2/app/_components/layout/header";
-import { Footer } from "../1/2/app/_components/layout/footer";
-import "../1/2/app/globals.css";
+import type { Metadata } from 'next';
+import './globals.css';
 
-export const metadata = {
-  title: 'AI Community',
-  description: 'Сообщество, где автоматизация превращается в прибыль',
+export const metadata: Metadata = {
+  title: 'AI Community Landing',
+  description: 'Welcome to our AI community',
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="ru">
-      <body className="flex min-h-screen flex-col bg-background text-foreground">
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
+      <body className="bg-gray-100">
+        {children}
       </body>
     </html>
   );
